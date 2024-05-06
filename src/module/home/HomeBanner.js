@@ -35,6 +35,28 @@ const HomeBannerStyles = styled.div`
       background-image: linear-gradient(to right bottom, white, white);
     }
   }
+  @media screen and (max-width: 1023.98px) {
+    .banner {
+      flex-direction: column;
+      min-height: unset;
+      &-heading {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      &-desc {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      &-image {
+        margin-top: 25px;
+      }
+      &-button {
+        font-size: 14px;
+        height: auto;
+        padding: 15px;
+      }
+    }
+  }
 `;
 
 const HomeBanner = () => {
@@ -51,7 +73,7 @@ const HomeBanner = () => {
               nisi.
             </p>
             <NavLink to="/sign-up">
-              <Button className="btn-white">Get Started</Button>
+              <Button className="btn-white banner-button">Get Started</Button>
             </NavLink>
           </div>
           <div className="banner-image">

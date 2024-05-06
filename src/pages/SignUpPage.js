@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Label } from "../components/label";
 import { Input } from "../components/input";
 import { useForm } from "react-hook-form";
-import { IconEyeClose, IconEyeOpen } from "../components/icon";
 import Field from "../components/field/Field";
 import { Button } from "../components/button";
 import * as yup from "yup";
@@ -13,6 +12,7 @@ import { auth, db } from "../firebase/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 import { NavLink, useNavigate } from "react-router-dom";
 import Authentication from "./Authentication";
+import InputPasswordToggle from "../components/input/InputPasswordToggle";
 
 const schema = yup.object({
   fullname: yup.string().required("Please enter your fullname"),
@@ -28,7 +28,6 @@ const schema = yup.object({
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [toggle, setToggle] = useState(false);
 
   const {
     control,
@@ -114,25 +113,8 @@ const SignUpPage = () => {
           <Label htmlFor="password" className="label">
             Password
           </Label>
-          <Input
-            type={toggle ? "text" : "password"}
-            className="input"
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {toggle ? (
-              <IconEyeOpen
-                className="input-icon"
-                onClick={() => setToggle(false)}
-              ></IconEyeOpen>
-            ) : (
-              <IconEyeClose
-                className="input-icon"
-                onClick={() => setToggle(true)}
-              ></IconEyeClose>
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
+
           <div className="nav-link">
             <NavLink to={"/sign-in"}>You have an account?</NavLink>
           </div>

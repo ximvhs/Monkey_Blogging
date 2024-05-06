@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/index.scss";
+import "./styles/_reset.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "styled-components";

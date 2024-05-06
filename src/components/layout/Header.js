@@ -20,7 +20,7 @@ const menuLinks = [
 ];
 
 const HeaderStyles = styled.header`
-  padding-top: 10px;
+  padding: 20px 0;
   .header-main {
     display: flex;
     align-items: center;
@@ -78,6 +78,17 @@ const HeaderStyles = styled.header`
         color: ${(props) => props.theme.primary};
         font-weight: bold;
       }
+    }
+  }
+  @media screen and (max-width: 1023.98px) {
+    .logo {
+      max-width: 30px;
+    }
+    .menu,
+    .search,
+    .header-button,
+    .header-auth {
+      display: none;
     }
   }
 `;
