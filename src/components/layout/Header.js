@@ -95,7 +95,6 @@ const HeaderStyles = styled.header`
 
 const Header = () => {
   const { userInfo } = useAuth();
-  console.log("userInfo: ", userInfo);
 
   return (
     <HeaderStyles>

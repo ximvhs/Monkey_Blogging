@@ -11,7 +11,14 @@ import slugify from "slugify";
 import { postStatus } from "../../utils/constants";
 import { ImageUpload } from "../../components/image";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import Toggle from "../../components/toggle/Toggle";
 import { useAuth } from "../../contexts/auth-context";
@@ -27,7 +34,7 @@ const PostAddNew = () => {
       title: "",
       slug: "",
       status: 2,
-      CategoryID: "",
+      CategoryId: "",
       author: "",
       hot: false,
       image: "",
@@ -43,33 +50,41 @@ const PostAddNew = () => {
     handleSelectImage,
     handleDeleteImage,
   } = useFirebaseImage(setValue, getValues);
-
-  const addPostHandler = async (values) => {
-    const cloneValues = { ...values };
-    cloneValues.slug = slugify(values.slug || values.title, { lower: true });
-    cloneValues.status = Number(values.status);
-    const colRef = collection(db, "posts");
-    await addDoc(colRef, {
-      ...cloneValues,
-      image,
-      userId: userInfo.uid,
-    });
-    toast.success("Chúc mừng bạn đã đăng bài thành công");
-    reset({
-      title: "",
-      slug: "",
-      status: 2,
-      CategoryID: "",
-      author: "",
-      hot: false,
-      image: "",
-    });
-    setSelectCategory({});
-    setImage("");
-    setProgress(0);
-  };
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const addPostHandler = async (values) => {
+    try {
+      const cloneValues = { ...values };
+      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+      cloneValues.status = Number(values.status);
+      const colRef = collection(db, "posts");
+      await addDoc(colRef, {
+        ...cloneValues,
+        image,
+        userId: userInfo.uid,
+        createdAt: serverTimestamp(),
+      });
+      toast.success("Chúc mừng bạn đã đăng bài thành công");
+      reset({
+        title: "",
+        slug: "",
+        status: 2,
+        CategoryId: "",
+        author: "",
+        hot: false,
+        image: "",
+      });
+      setSelectCategory({});
+      setImage("");
+      setProgress(0);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     async function getData() {
@@ -87,6 +102,10 @@ const PostAddNew = () => {
     }
     getData();
   }, []);
+
+  useEffect(() => {
+    document.title = "Monkey Blogging - Add new post";
+  });
 
   const handleClickOption = (item) => {
     setValue("CategoryId", item.id);
@@ -191,7 +210,12 @@ const PostAddNew = () => {
             ></Toggle>
           </Field>
         </div>
-        <Button type="submit" className="mx-auto">
+        <Button
+          type="submit "
+          className="mx-auto w-[180px]"
+          isLoading={loading}
+          disabled={loading}
+        >
           Add new post
         </Button>
       </form>
