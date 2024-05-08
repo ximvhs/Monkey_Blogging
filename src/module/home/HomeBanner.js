@@ -72,7 +72,7 @@ const HomeBanner = () => {
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi.
             </p>
-            <NavLink to="/sign-up">
+            <NavLink to="/manage/add-post">
               <Button className="btn-white banner-button">Get Started</Button>
             </NavLink>
           </div>

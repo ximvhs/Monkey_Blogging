@@ -150,16 +150,28 @@ const Header = () => {
                 </svg>
               </span>
             </div>
-            {userInfo ? (
-              <div className="header-auth">
-                <span>{userInfo?.displayName}</span>
-              </div>
-            ) : (
-              <Button style={{ maxWidth: "300px", height: "55px" }}>
-                <NavLink to={"/sign-in"}>Sign In</NavLink>
-              </Button>
-            )}
           </div>
+          {!userInfo ? (
+            <Button
+              type="button"
+              height="56px"
+              className="header-button"
+              to="/sign-in"
+            >
+              Login
+            </Button>
+          ) : (
+            <div className="header-auth">
+              <Button
+                type="button"
+                height="56px"
+                className="header-button"
+                to="/dashboard"
+              >
+                Dashboard
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </HeaderStyles>

@@ -57,7 +57,7 @@ const SignInPage = () => {
   };
   return (
     <Authentication>
-      <form onSubmit={handleSubmit(handleSignIn)} className="">
+      <form onSubmit={handleSubmit(handleSignIn)}>
         <Field>
           <Label htmlFor="email" className="label">
             Email address

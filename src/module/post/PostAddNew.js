@@ -123,6 +123,7 @@ const PostAddNew = () => {
               control={control}
               placeholder="Enter your title"
               name="title"
+              required
             ></Input>
           </Field>
           <Field>
