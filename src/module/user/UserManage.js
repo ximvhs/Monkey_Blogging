@@ -1,3 +1,4 @@
+import { Button } from "../../components/button";
 import DashboardHeading from "../dashboard/DashboardHeading";
 import UserTable from "./UserTable";
 // import { Button } from "components/button";
@@ -12,11 +13,11 @@ const UserManage = () => {
         title="Users"
         desc="Manage your user"
       ></DashboardHeading>
-      {/* <div className="flex justify-end mb-10">
+      <div className="flex justify-end mb-10">
         <Button kind="ghost" to="/manage/add-user">
           Add new user
         </Button>
-      </div> */}
+      </div>
       <UserTable></UserTable>
     </div>
   );

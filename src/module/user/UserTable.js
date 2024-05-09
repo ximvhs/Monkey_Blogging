@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { LabelStatus } from "../../components/label";
 import { userRole, userStatus } from "../../utils/constants";
+import { deleteUser } from "firebase/auth";
 
 const UserTable = () => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const UserTable = () => {
     }
   };
   const { userInfo } = useAuth();
+  console.log("userInfo: ", userInfo);
   const handleDeleteUser = async (user) => {
     if (userInfo?.role !== userRole.ADMIN) {
       Swal.fire("Failed", "You have no right to do this action", "warning");
@@ -88,7 +90,7 @@ const UserTable = () => {
               className="flex-shrink-0 object-cover w-10 h-10 rounded-md"
             />
             <div className="flex-1">
-              <h3>{user?.name}</h3>
+              <h3>{user?.fullname || user?.username}</h3>
               <time className="text-sm text-gray-300">
                 {new Date(user?.createdAt?.seconds * 1000).toLocaleDateString(
                   "vi-VI"
