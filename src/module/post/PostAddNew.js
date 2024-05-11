@@ -14,6 +14,8 @@ import useFirebaseImage from "../../hooks/useFirebaseImage";
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
   query,
   serverTimestamp,
@@ -34,10 +36,10 @@ const PostAddNew = () => {
       title: "",
       slug: "",
       status: 2,
-      CategoryId: "",
-      author: "",
       hot: false,
       image: "",
+      user: {},
+      category: {},
     },
   });
   const watchStatus = watch("status");
@@ -50,11 +52,32 @@ const PostAddNew = () => {
     handleSelectImage,
     handleDeleteImage,
   } = useFirebaseImage(setValue, getValues);
+
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    async function fetchUserData() {
+      if (!userInfo.email) return;
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", userInfo.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setValue("user", {
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+    }
+    fetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo.email]);
+
   const addPostHandler = async (values) => {
+    setLoading(true);
     try {
       const cloneValues = { ...values };
       cloneValues.slug = slugify(values.slug || values.title, { lower: true });
@@ -63,7 +86,6 @@ const PostAddNew = () => {
       await addDoc(colRef, {
         ...cloneValues,
         image,
-        userId: userInfo.uid,
         createdAt: serverTimestamp(),
       });
       toast.success("Chúc mừng bạn đã đăng bài thành công");
@@ -71,7 +93,7 @@ const PostAddNew = () => {
         title: "",
         slug: "",
         status: 2,
-        CategoryId: "",
+        category: {},
         author: "",
         hot: false,
         image: "",
@@ -107,8 +129,13 @@ const PostAddNew = () => {
     document.title = "Monkey Blogging - Add new post";
   });
 
-  const handleClickOption = (item) => {
-    setValue("CategoryId", item.id);
+  const handleClickOption = async (item) => {
+    const colRef = doc(db, "categories", item.id);
+    const docData = await getDoc(colRef);
+    setValue("category", {
+      id: docData.id,
+      ...docData.data(),
+    });
     setSelectCategory(item);
   };
 

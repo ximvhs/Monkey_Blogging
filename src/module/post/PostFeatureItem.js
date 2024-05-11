@@ -4,8 +4,6 @@ import PostCategory from "./PostCategory";
 import PostTitle from "./PostTitle";
 import PostMeta from "./PostMeta";
 import PostImage from "./PostImage";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config";
 import slugify from "slugify";
 const PostFeatureItemStyles = styled.div`
   width: 100%;
@@ -53,32 +51,12 @@ const PostFeatureItemStyles = styled.div`
   }
 `;
 const PostFeatureItem = ({ data }) => {
-  const [category, setCategory] = useState("");
-
-  useEffect(() => {
-    async function fetch() {
-      const docRef = doc(db, "categories", data.CategoryId);
-      const docSnap = await getDoc(docRef);
-      setCategory(docSnap.data());
-    }
-    fetch();
-  }, [data.CategoryId]);
-
-  // console.log("ở đây là category", category);
-  // useEffect(() => {
-  //   async function fetchUser() {
-  //     const docRef = doc(db, "users", data.userId);
-  //     const docSnap = await getDoc(docRef);
-  //     setUser(docSnap.data());
-  //   }
-  //   fetchUser();
-  // }, [data.userId]);
-
   if (!data || !data.id) return null;
   const date = data?.createdAt?.seconds
     ? new Date(data?.createdAt?.seconds * 1000)
     : new Date();
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
+  const { category, user } = data;
   return (
     <PostFeatureItemStyles>
       <PostImage url={data.image} atl="unsplash"></PostImage>
@@ -90,8 +68,8 @@ const PostFeatureItem = ({ data }) => {
             <PostCategory to={category.slug}>{category.name}</PostCategory>
           )}
           <PostMeta
-            to={slugify(data?.fullname || "", { lower: true })}
-            authorName={data.author}
+            to={slugify(user?.username || "", { lower: true })}
+            authorName={user.fullname}
             date={formatDate}
           ></PostMeta>
         </div>

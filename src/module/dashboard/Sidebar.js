@@ -141,10 +141,6 @@ const sidebarLinks = [
 const Sidebar = () => {
   return (
     <SidebarStyles className="sidebar">
-      <div className="sidebar-logo">
-        <img srcSet="/logo.png 2x" alt="" />
-        <span>Monkey Blogging</span>
-      </div>
       {sidebarLinks.map((link) => {
         if (link.onClick)
           return (

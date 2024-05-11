@@ -32,3 +32,6 @@ export const userRole = {
   MOD: 2,
   USER: 3,
 };
+
+export const imgbbAPI =
+  "https://api.imgbb.com/1/upload?key=13784139ee1ad63d41e1e7db7786542c";

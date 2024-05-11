@@ -9,14 +9,14 @@ import { Radio } from "../../components/checkbox";
 import { Button } from "../../components/button";
 import { useForm } from "react-hook-form";
 import { userRole, userStatus } from "../../utils/constants";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import { toast } from "react-toastify";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
+import { Textarea } from "../../components/textarea";
 
 const UserUpdate = () => {
-  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -24,7 +24,7 @@ const UserUpdate = () => {
     reset,
     getValues,
     setValue,
-    formState: { isValid, isSubmitting },
+    formState: { isSubmitting },
   } = useForm({
     mode: "onChange",
   });
@@ -33,14 +33,8 @@ const UserUpdate = () => {
   const imageUrl = getValues("avatar");
   const imageRegex = /%2F(\S+)\?/gm.exec(imageUrl);
   const imageName = imageRegex?.length > 0 ? imageRegex[1] : "";
-  const {
-    image,
-    progress,
-    setImage,
-    setProgress,
-    handleSelectImage,
-    handleDeleteImage,
-  } = useFirebaseImage(setValue, getValues, imageName, deleteAvatar);
+  const { image, progress, handleSelectImage, handleDeleteImage } =
+    useFirebaseImage(setValue, getValues, imageName, deleteAvatar);
   const [params] = useSearchParams();
   const userId = params.get("id");
   const handleUpdateUser = async (values) => {
@@ -190,6 +184,12 @@ const UserUpdate = () => {
                 User
               </Radio>
             </FieldCheckboxes>
+          </Field>
+        </div>
+        <div className="form-layout">
+          <Field>
+            <Label>Description</Label>
+            <Textarea name="description" control={control}></Textarea>
           </Field>
         </div>
         <Button
