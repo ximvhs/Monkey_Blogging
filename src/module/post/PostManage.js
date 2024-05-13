@@ -30,7 +30,6 @@ const PostManage = () => {
   const [lastDoc, setLastDoc] = useState();
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
-  const { userInfo } = useAuth();
   useEffect(() => {
     async function fetchData() {
       const colRef = collection(db, "posts");
@@ -119,8 +118,9 @@ const PostManage = () => {
       documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
-  // const { userInfo } = useAuth();
+  const { userInfo } = useAuth();
   // if (userInfo.role !== userRole.ADMIN) return null;
+
   return (
     <div>
       <DashboardHeading

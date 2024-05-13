@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const PostCategoryStyeles = styled.div`
@@ -29,11 +29,11 @@ const PostCategory = ({
   children,
   type = "primary",
   className = "",
-  to = "/",
+  to = "",
 }) => {
   return (
     <PostCategoryStyeles type={type} className={`post-category ${className}`}>
-      <NavLink to={to}>{children}</NavLink>
+      <Link to={`/category/${to}`}>{children}</Link>
     </PostCategoryStyeles>
   );
 };

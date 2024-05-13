@@ -1,10 +1,6 @@
 import { Button } from "../../components/button";
 import DashboardHeading from "../dashboard/DashboardHeading";
 import UserTable from "./UserTable";
-// import { Button } from "components/button";
-// import { useAuth } from "contexts/auth-context";
-// import { userRole } from "utils/constants";
-// import UserTable from "./UserTable";
 
 const UserManage = () => {
   return (

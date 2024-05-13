@@ -24,6 +24,7 @@ const HeaderStyles = styled.header`
   .header-main {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     .logo {
       max-width: 50px;
@@ -112,7 +113,7 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <div className="header-right">
+          {/* <div className="header-right">
             <div className="header-right-input">
               <input
                 className="search__input"
@@ -150,7 +151,7 @@ const Header = () => {
                 </svg>
               </span>
             </div>
-          </div>
+          </div> */}
           {!userInfo ? (
             <Button
               type="button"
