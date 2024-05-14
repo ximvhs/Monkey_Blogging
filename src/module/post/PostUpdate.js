@@ -33,7 +33,6 @@ Quill.register("modules/imageUploader", ImageUploader);
 const PostUpdate = () => {
   const [params] = useSearchParams();
   const postId = params.get("id");
-  // const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [content, setContent] = useState("");
@@ -74,7 +73,6 @@ const PostUpdate = () => {
       if (!postId) return;
       const docRef = doc(db, "posts", postId);
       const docSnapshot = await getDoc(docRef);
-      console.log("docSnapshot: ", docSnapshot.data());
       if (docSnapshot.data()) {
         reset(docSnapshot.data());
         setSelectCategory(docSnapshot.data()?.category || "");

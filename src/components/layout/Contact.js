@@ -10,7 +10,7 @@ import { Textarea } from "../textarea";
 const ContactStyled = styled.div`
   .contact_container {
     position: fixed;
-    z-index: 20;
+    z-index: 200;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -73,7 +73,7 @@ const ContactStyled = styled.div`
   }
   .over {
     position: fixed;
-    z-index: 10;
+    z-index: 100;
     top: 0;
     left: 0;
     right: 0;
@@ -102,7 +102,7 @@ const info = [
         viewBox="0 0 24 24"
         strokeWidth="2"
         stroke="currentColor"
-        className="w-6 h-6"
+        className="w-8 h-8"
       >
         <path
           strokeLinecap="round"
@@ -111,7 +111,7 @@ const info = [
         />
       </svg>
     ),
-    text: "033 64 75 713",
+    text: "0336 475 713",
   },
   {
     id: 2,
@@ -122,7 +122,7 @@ const info = [
         viewBox="0 0 24 24"
         strokeWidth="2"
         stroke="currentColor"
-        className="w-6 h-6"
+        className="w-8 h-8"
       >
         <path
           strokeLinecap="round"
@@ -142,7 +142,7 @@ const info = [
         viewBox="0 0 24 24"
         strokeWidth="2"
         stroke="currentColor"
-        className="w-6 h-6"
+        className="w-8 h-8"
       >
         <path
           strokeLinecap="round"
@@ -180,8 +180,8 @@ const Contact = () => {
           <h1 className="mx-auto text-[28px] font-bold">CONTACT ME!</h1>
           {info.length > 0 &&
             info.map((item) => (
-              <div className="flex gap-2 items-center" key={item.id}>
-                <span>{item.icon}</span>
+              <div className="flex gap-5 items-center" key={item.id}>
+                <span className="text-[30px]">{item.icon}</span>
                 <p className="text-[18px]">{item.text}</p>
               </div>
             ))}

@@ -21,6 +21,9 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 
+const number_show = 5;
+const number_next_show = 1;
+
 const CategoryManage = () => {
   const [categoryList, setCategoryList] = useState([]);
   const navigate = useNavigate();
@@ -36,7 +39,7 @@ const CategoryManage = () => {
             where("name", ">=", filter),
             where("name", "<=", filter + "utf8")
           )
-        : query(colRef, limit(1));
+        : query(colRef, limit(number_show));
       const documentSnapshots = await getDocs(newRef);
       const lastVisible =
         documentSnapshots.docs[documentSnapshots.docs.length - 1];
@@ -90,8 +93,8 @@ const CategoryManage = () => {
   const handleLoadMoreCategory = async () => {
     const nextRef = query(
       collection(db, "categories"),
-      startAfter(lastDoc),
-      limit(1)
+      startAfter(lastDoc || 0),
+      limit(number_next_show)
     );
     onSnapshot(nextRef, (snapshot) => {
       let results = [];

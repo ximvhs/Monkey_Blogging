@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Field from "../../components/field/Field";
@@ -8,9 +8,10 @@ import { Button } from "../../components/button";
 import { Radio } from "../../components/checkbox";
 import { Dropdown } from "../../components/dropdown";
 import slugify from "slugify";
-import { postStatus } from "../../utils/constants";
+import { imgbbAPI, postStatus } from "../../utils/constants";
 import { ImageUpload } from "../../components/image";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
+
 import {
   addDoc,
   collection,
@@ -73,8 +74,7 @@ const PostAddNew = () => {
       });
     }
     fetchUserData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo.email]);
+  }, [userInfo.email, setValue]);
 
   const addPostHandler = async (values) => {
     setLoading(true);
@@ -140,7 +140,6 @@ const PostAddNew = () => {
     });
     setSelectCategory(item);
   };
-
   return (
     <PostAddNewStyles>
       <h1 className="dashboard-heading">Add new post</h1>

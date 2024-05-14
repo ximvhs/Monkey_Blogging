@@ -22,7 +22,8 @@ import { Button } from "../../components/button";
 import DashboardHeading from "../dashboard/DashboardHeading";
 import { postStatus, userRole } from "../../utils/constants";
 
-const POST_PER_PAGE = 10;
+const number_show_post = 10;
+const number_next_show_post = 1;
 
 const PostManage = () => {
   const [postList, setPostList] = useState([]);
@@ -39,7 +40,7 @@ const PostManage = () => {
             where("title", ">=", filter),
             where("title", "<=", filter + "utf8")
           )
-        : query(colRef, limit(POST_PER_PAGE));
+        : query(colRef, limit(number_show_post));
       const documentSnapshots = await getDocs(newRef);
       const lastVisible =
         documentSnapshots.docs[documentSnapshots.docs.length - 1];
@@ -100,7 +101,7 @@ const PostManage = () => {
     const nextRef = query(
       collection(db, "posts"),
       startAfter(lastDoc || 0),
-      limit(POST_PER_PAGE)
+      limit(number_next_show_post)
     );
 
     onSnapshot(nextRef, (snapshot) => {

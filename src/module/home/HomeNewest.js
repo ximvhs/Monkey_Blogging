@@ -65,12 +65,14 @@ const HomeNewest = () => {
         <Heading>Mới nhất</Heading>
         <div className="layout">
           <PostNewestLarge data={first}></PostNewestLarge>
-          <div className="sidebar">
-            {other.length > 0 &&
-              other.map((item) => (
-                <PostNewestItem key={item.id} data={item}></PostNewestItem>
-              ))}
-          </div>
+          {other.length > 0 && (
+            <div className="sidebar">
+              {other.length > 0 &&
+                other.map((item) => (
+                  <PostNewestItem key={item.id} data={item}></PostNewestItem>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </HomeNewestStyles>

@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/auth-context";
 import Contact from "./Contact";
 import { useContact } from "./Contact-context";
+import Menu from "../menu/Menu";
 
 // const menuLinks = [
 //   {
@@ -72,64 +73,70 @@ const HeaderStyles = styled.header`
         }
         .menu-link {
           font-weight: 600;
+          font-size: 18px;
         }
       }
     }
-
-    /*css của input  */
-    /* .header-right {
-      margin-left: auto;
-      display: flex;
-      gap: 20px;
-      .header-right-input {
-        position: relative;
-        .search__input {
-          border: 2px solid #ccc;
-          padding: 15px 60px 15px 15px;
-          width: 100%;
-          max-width: 320px;
-          border-radius: 8px;
-          transition: all 0.3s linear;
-          :focus {
-            border: 2px solid ${(props) => props.theme.primary};
-          }
-        }
-        .search-icon {
-          position: absolute;
-          right: 0;
-          top: 50%;
-          height: 100%;
-          transform: translateY(-50%);
-          border-radius: 0 8px 8px 0;
-          cursor: pointer;
-          padding: 20px;
-          display: flex;
-          align-items: center;
-          background-color: ${(props) => props.theme.primary};
-          transition: all 0.2s linear;
-          opacity: 0.8;
-          :hover {
-            opacity: 1;
-          }
-        }
-      }
-      .header-auth {
-        display: flex;
-        align-items: center;
-        color: ${(props) => props.theme.primary};
-        font-weight: bold;
-      }
-    } */
   }
   .header-auth {
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative;
+    :hover .header-auth-menu {
+      display: block;
+    }
+    .header-auth-menu {
+      position: absolute;
+      bottom: -300px;
+      left: -200px;
+      animation: Grow ease 0.3s;
+      transform-origin: calc(100% - 10px) top;
+      display: none;
+      z-index: 5;
+      :after {
+        content: "";
+        position: absolute;
+        top: -32px;
+        right: 4px;
+        border-width: 16px 20px;
+        border-style: solid;
+        z-index: 2;
+        border-color: transparent transparent white transparent;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      }
+      :before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        width: 100%;
+        height: 40px;
+        z-index: 1;
+      }
+    }
+    @keyframes Grow {
+      from {
+        opacity: 0;
+        transform: scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   }
   .header-avatar {
     display: inline;
     width: 52px;
     height: 52px;
+    z-index: 10;
+    border: solid 3px ${(props) => props.theme.primary};
+    border-radius: 100%;
+
+    :hover .header-auth-menu {
+      display: block;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -199,45 +206,6 @@ const Header = () => {
               );
             })}
           </ul>
-          {/* <div className="header-right">
-            <div className="header-right-input">
-              <input
-                className="search__input"
-                type="text"
-                placeholder="Search post..."
-              />
-              <span className="search-icon">
-                <svg
-                  width="18"
-                  height="17"
-                  viewBox="0 0 18 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <ellipse
-                    cx="7.66669"
-                    cy="7.05161"
-                    rx="6.66669"
-                    ry="6.05161"
-                    stroke="#fff"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M17.0001 15.5237L15.2223 13.9099L14.3334 13.103L12.5557 11.4893"
-                    stroke="#fff"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M11.6665 12.2964C12.9671 12.1544 13.3706 11.8067 13.4443 10.6826"
-                    stroke="#fff"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-            </div>
-          </div> */}
           {!userInfo ? (
             <Button
               type="button"
@@ -249,17 +217,10 @@ const Header = () => {
             </Button>
           ) : (
             <div className="header-auth">
-              {/* <Button
-                type="button"
-                height="56px"
-                className="header-button"
-                to="/dashboard"
-              >
-                Dashboard
-              </Button> */}
               <Link to="/manage/profile" className="header-avatar">
-                <img src={userInfo?.avatar} alt="" />
+                <img src={userInfo?.avatar} alt="avatar" />
               </Link>
+              <Menu className="header-auth-menu"></Menu>
             </div>
           )}
         </div>
