@@ -16,6 +16,7 @@ const TextareaStyles = styled.div`
     font-size: 14px;
     resize: none;
     min-height: 200px;
+    min-width: 400px;
   }
   textarea::-webkit-input-placeholder {
     color: #b2b3bd;

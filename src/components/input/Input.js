@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useController } from "react-hook-form";
-import { IconEyeOpen } from "../icon";
 
 const InputStyles = styled.div`
   position: relative;

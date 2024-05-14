@@ -49,7 +49,7 @@ const DashboardHeader = () => {
         <Button to="/manage/add-post" className="header-button" height="52px">
           Write new post
         </Button>
-        <Link to="/profile" className="header-avatar">
+        <Link to="manage/profile" className="header-avatar">
           <img src={userInfo?.avatar} alt="" />
         </Link>
       </div>

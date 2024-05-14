@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../button";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/auth-context";
+import Contact from "./Contact";
+import { useContact } from "./Contact-context";
 
-const menuLinks = [
-  {
-    url: "/",
-    title: "Home",
-  },
-  {
-    url: "/blog",
-    title: "Blog",
-  },
-  {
-    url: "/contact",
-    title: "Contact",
-  },
-];
+// const menuLinks = [
+//   {
+//     url: "/",
+//     title: "Home",
+//   },
+//   {
+//     url: "/blog",
+//     title: "Blog",
+//   },
+//   {
+//     url: "/contact",
+//     title: "Contact",
+//     onclick: () => {
+//       setContact(true);
+//     },
+//   },
+// ];
 
 const HeaderStyles = styled.header`
   padding: 20px 0;
@@ -33,11 +38,46 @@ const HeaderStyles = styled.header`
       display: flex;
       gap: 20px;
       margin-left: 40px;
-      .menu-link {
-        font-weight: 600;
+      .menu-item {
+        position: relative;
+        color: ${(props) => props.theme.primary};
+        :hover {
+          opacity: 0.8;
+          :before {
+            content: "";
+            width: 110%;
+            height: 3px;
+            background-image: linear-gradient(
+              to right bottom,
+              ${(props) => props.theme.primary},
+              ${(props) => props.theme.secondary}
+            );
+            position: absolute;
+            top: 26px;
+            left: 0;
+            transform: translate(0, -150%);
+            animation: light 0.3s ease-in;
+          }
+        }
+        @keyframes light {
+          from {
+            opacity: 0;
+            width: 0;
+          }
+          to {
+            opacity: 1;
+
+            width: 110%;
+          }
+        }
+        .menu-link {
+          font-weight: 600;
+        }
       }
     }
-    .header-right {
+
+    /*css của input  */
+    /* .header-right {
       margin-left: auto;
       display: flex;
       gap: 20px;
@@ -79,6 +119,22 @@ const HeaderStyles = styled.header`
         color: ${(props) => props.theme.primary};
         font-weight: bold;
       }
+    } */
+  }
+  .header-auth {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header-avatar {
+    display: inline;
+    width: 52px;
+    height: 52px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 100rem;
     }
   }
   @media screen and (max-width: 1023.98px) {
@@ -87,8 +143,7 @@ const HeaderStyles = styled.header`
     }
     .menu,
     .search,
-    .header-button,
-    .header-auth {
+    .header-button {
       display: none;
     }
   }
@@ -96,6 +151,25 @@ const HeaderStyles = styled.header`
 
 const Header = () => {
   const { userInfo } = useAuth();
+  const { show, setShow } = useContact();
+
+  const menuLinks = [
+    {
+      url: "/",
+      title: "Home",
+    },
+    {
+      url: "/blog",
+      title: "Blog",
+    },
+    {
+      url: "/contact",
+      title: "Contact",
+      onClick: () => {
+        setShow(!show);
+      },
+    },
+  ];
 
   return (
     <HeaderStyles>
@@ -105,13 +179,25 @@ const Header = () => {
             <img src="/monkey.png" alt="Monkey Blongging" className="logo" />
           </NavLink>
           <ul className="menu">
-            {menuLinks.map((item) => (
-              <li className="menu-item" key={item.title}>
-                <NavLink to={item.url} className="menu-link">
-                  {item.title}
-                </NavLink>
-              </li>
-            ))}
+            {menuLinks.map((item) => {
+              if (item.onClick)
+                return (
+                  <li
+                    onClick={item.onClick}
+                    className="menu-item"
+                    key={item.title}
+                  >
+                    <div className="menu-link cursor-pointer">{item.title}</div>
+                  </li>
+                );
+              return (
+                <li className="menu-item" key={item.title}>
+                  <NavLink to={item.url} className="menu-link">
+                    {item.title}
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
           {/* <div className="header-right">
             <div className="header-right-input">
@@ -163,14 +249,17 @@ const Header = () => {
             </Button>
           ) : (
             <div className="header-auth">
-              <Button
+              {/* <Button
                 type="button"
                 height="56px"
                 className="header-button"
                 to="/dashboard"
               >
                 Dashboard
-              </Button>
+              </Button> */}
+              <Link to="/manage/profile" className="header-avatar">
+                <img src={userInfo?.avatar} alt="" />
+              </Link>
             </div>
           )}
         </div>

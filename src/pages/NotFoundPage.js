@@ -1,46 +1,68 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../components/button";
-import { NavLink } from "react-router-dom";
-
-const NotFoundPageStyles = styled.div`
-  display: flex;
-  flex-direction: column;
+const PageNotFoundStyles = styled.div`
+  color: black;
   height: 100vh;
-  justify-content: center;
+  display: flex;
   align-items: center;
-  gap: 20px;
-  img {
-    height: 200px;
+  justify-content: center;
+  flex-direction: column;
+  background-color: ${(props) => props.theme.black};
+  .page-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
   }
-  h1 {
-    font-size: 50px;
+  .logo {
+    display: inline-block;
+    margin-bottom: 40px;
   }
-  .container-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .notfound-text {
-      font-size: 100px;
-    }
+  .heading {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .description {
+    max-width: 800px;
+    margin: 0 auto 40px;
+  }
+  .back {
+    display: inline-block;
+    padding: 15px 30px;
+    color: white;
+    background-image: linear-gradient(
+      to right top,
+      ${(props) => props.theme.primary},
+      ${(props) => props.theme.secondary}
+    );
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  .image {
+    max-width: 250px;
+    margin: 0 auto 40px;
   }
 `;
 
-const NotFoundPage = () => {
+const PageNotFound = () => {
+  const navigate = useNavigate();
   return (
-    <NotFoundPageStyles>
-      <NavLink to="/">
-        <img src="/monkey.png" alt="Not Found" />
-      </NavLink>
-      <div className="container-text">
-        <h1 className="notfound-text">404!</h1>
-        <h1>Oops! Page not found</h1>
+    <PageNotFoundStyles>
+      <div className="page-content">
+        <img src="/404.png" alt="notfound" className="image" />
+        <h1 className="heading">404 - Looks like you're lost.</h1>
+        <p className="description">
+          Maybe this page used to exist or you just spelled something wrong.
+          Chances are your spelled something wrong, so can you double check the
+          URL?
+        </p>
+        <button onClick={() => navigate("/")} className="back">
+          Go back
+        </button>
       </div>
-      <Button>
-        <NavLink to="/"> Back to home</NavLink>
-      </Button>
-    </NotFoundPageStyles>
+    </PageNotFoundStyles>
   );
 };
 
-export default NotFoundPage;
+export default PageNotFound;

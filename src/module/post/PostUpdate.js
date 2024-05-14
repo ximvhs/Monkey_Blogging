@@ -33,7 +33,7 @@ Quill.register("modules/imageUploader", ImageUploader);
 const PostUpdate = () => {
   const [params] = useSearchParams();
   const postId = params.get("id");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [content, setContent] = useState("");

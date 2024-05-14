@@ -48,12 +48,17 @@ const SignInPage = () => {
   useEffect(() => {
     document.title = "Login Page";
     if (userInfo?.email) navigate("/");
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   const handleSignIn = async (values) => {
     if (!isValid) return;
-    await signInWithEmailAndPassword(auth, values.email, values.password);
-    navigate("/");
+    try {
+      await signInWithEmailAndPassword(auth, values.email, values.password);
+      toast.success("Đăng nhập thành công");
+      navigate("/");
+    } catch (error) {
+      toast.error("Tài khoản hoặc mật khẩu không tồn tại.");
+    }
   };
   return (
     <Authentication>
@@ -77,7 +82,9 @@ const SignInPage = () => {
           </Label>
           <InputPasswordToggle control={control}></InputPasswordToggle>
           <div className="nav-link">
-            <NavLink to={"/sign-up"}>You don't have an account?</NavLink>
+            <NavLink to={"/forgot-password"}>
+              You don't have an account?
+            </NavLink>
           </div>
         </Field>
         <Button
@@ -88,6 +95,11 @@ const SignInPage = () => {
         >
           Sign in
         </Button>
+        <div className="nav-link">
+          <NavLink to={"/sign-up"} className=" mx-auto mt-5">
+            You don't have an account?
+          </NavLink>
+        </div>
       </form>
     </Authentication>
   );

@@ -11,10 +11,11 @@ import { useForm } from "react-hook-form";
 import { userRole, userStatus } from "../../utils/constants";
 import { useSearchParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config";
+import { auth, db } from "../../firebase/firebase-config";
 import { toast } from "react-toastify";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import { Textarea } from "../../components/textarea";
+import { onAuthStateChanged } from "firebase/auth";
 
 const UserUpdate = () => {
   const {
@@ -39,14 +40,13 @@ const UserUpdate = () => {
   const userId = params.get("id");
   const handleUpdateUser = async (values) => {
     try {
-      console.log("values: ", values);
       const colRef = doc(db, "users", userId);
       await updateDoc(colRef, {
         ...values,
-        avatar: image,
+        avatar: image || imageUrl,
       });
-      toast.success("Update user infomation successfully!");
-      //   navigate("/manage/user");
+
+      toast.success("Update user information successfully!");
     } catch (error) {
       toast.error("Can not update user infomation");
     }
