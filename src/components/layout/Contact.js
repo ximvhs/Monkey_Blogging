@@ -55,7 +55,7 @@ const ContactStyled = styled.div`
         z-index: 10;
       }
       .label {
-        font-size: 20px;
+        font-size: 16px;
         margin-bottom: -12px;
         color: ${(props) => props.theme.primary};
       }
@@ -182,7 +182,7 @@ const Contact = () => {
             info.map((item) => (
               <div className="flex gap-5 items-center" key={item.id}>
                 <span className="text-[30px]">{item.icon}</span>
-                <p className="text-[18px]">{item.text}</p>
+                <p className="text-[16px]">{item.text}</p>
               </div>
             ))}
         </div>
@@ -192,10 +192,10 @@ const Contact = () => {
             alt="Monkey"
             className="absolute w-[350px] h-[400px] opacity-10 z-0"
           />
-          <h1 className="text-[28px] font-bold z-10">Gửi ẩn danh</h1>
+          <h1 className="text-[28px] font-bold z-10">SENT ANONYMOUSLY</h1>
           <Field>
             <Label htmlFor="email" className="label">
-              Tin nhắn
+              Message
             </Label>
             <Textarea
               name="description"
@@ -209,7 +209,7 @@ const Contact = () => {
             type="submit"
             className="w-[200px] z-10"
           >
-            Gửi
+            Sent
           </Button>
         </form>
         <div className="icon_close" onClick={handleClose}>

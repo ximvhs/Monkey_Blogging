@@ -26,6 +26,11 @@ import { db } from "../../firebase/firebase-config";
 import Toggle from "../../components/toggle/Toggle";
 import { useAuth } from "../../contexts/auth-context";
 import { toast } from "react-toastify";
+import axios from "axios";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import ImageUploader from "quill-image-uploader";
+Quill.register("modules/imageUploader", ImageUploader);
 
 const PostAddNewStyles = styled.div``;
 
@@ -40,6 +45,7 @@ const PostAddNew = () => {
       hot: false,
       image: "",
       user: {},
+      content: "",
       category: {},
     },
   });
@@ -57,6 +63,7 @@ const PostAddNew = () => {
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     async function fetchUserData() {
@@ -85,6 +92,7 @@ const PostAddNew = () => {
       const colRef = collection(db, "posts");
       await addDoc(colRef, {
         ...cloneValues,
+        content: content,
         categoryId: cloneValues.category.id,
         userId: cloneValues.user.id,
         image,
@@ -100,6 +108,7 @@ const PostAddNew = () => {
         hot: false,
         image: "",
       });
+      setContent("");
       setSelectCategory({});
       setImage("");
       setProgress(0);
@@ -130,6 +139,36 @@ const PostAddNew = () => {
   useEffect(() => {
     document.title = "Monkey Blogging - Add new post";
   });
+
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote"],
+        [{ header: 1 }, { header: 2 }], // custom button values
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["link", "image"],
+      ],
+      imageUploader: {
+        // imgbbAPI
+        upload: async (file) => {
+          const bodyFormData = new FormData();
+          bodyFormData.append("image", file);
+          const response = await axios({
+            method: "post",
+            url: imgbbAPI,
+            data: bodyFormData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          return response.data.data.url;
+        },
+      },
+    }),
+    []
+  );
 
   const handleClickOption = async (item) => {
     const colRef = doc(db, "categories", item.id);
@@ -239,6 +278,17 @@ const PostAddNew = () => {
             ></Toggle>
           </Field>
         </div>
+        <Field>
+          <Label>Content</Label>
+          <div className="w-full entry-content">
+            <ReactQuill
+              modules={modules}
+              theme="snow"
+              value={content}
+              onChange={setContent}
+            />
+          </div>
+        </Field>
         <Button
           type="submit "
           className="mx-auto w-[180px]"

@@ -94,6 +94,7 @@ const HeaderStyles = styled.header`
       transform-origin: calc(100% - 10px) top;
       display: none;
       z-index: 5;
+
       :after {
         content: "";
         position: absolute;
@@ -102,15 +103,14 @@ const HeaderStyles = styled.header`
         border-width: 16px 20px;
         border-style: solid;
         z-index: 2;
-        border-color: transparent transparent white transparent;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        border-color: transparent transparent #f4f1f1 transparent;
       }
       :before {
         content: "";
         position: absolute;
-        top: -20px;
-        width: 100%;
+        top: -40px;
+        right: 0;
+        width: 40%;
         height: 40px;
         z-index: 1;
       }
@@ -133,6 +133,8 @@ const HeaderStyles = styled.header`
     z-index: 10;
     border: solid 3px ${(props) => props.theme.primary};
     border-radius: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
     :hover .header-auth-menu {
       display: block;

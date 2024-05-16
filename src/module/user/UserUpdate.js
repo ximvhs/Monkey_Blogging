@@ -11,11 +11,10 @@ import { useForm } from "react-hook-form";
 import { userRole, userStatus } from "../../utils/constants";
 import { useSearchParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../../firebase/firebase-config";
+import { db } from "../../firebase/firebase-config";
 import { toast } from "react-toastify";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import { Textarea } from "../../components/textarea";
-import { onAuthStateChanged } from "firebase/auth";
 
 const UserUpdate = () => {
   const {
@@ -81,7 +80,7 @@ const UserUpdate = () => {
       <form onSubmit={handleSubmit(handleUpdateUser)}>
         <div className="w-[200px] h-[200px] mx-auto rounded-full mb-10">
           <ImageUpload
-            className=" !rounded-full mx-auto j-full"
+            className=" !rounded-full mx-auto h-full"
             onChange={handleSelectImage}
             progress={progress}
             image={image || imageUrl}

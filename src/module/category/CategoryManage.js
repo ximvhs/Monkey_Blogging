@@ -141,7 +141,7 @@ const CategoryManage = () => {
           {categoryList.length > 0 &&
             categoryList.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td>{item.id.slice(0, 5) + "..."}</td>
                 <td>{item.name}</td>
                 <td>{item.slug}</td>
                 <td>
