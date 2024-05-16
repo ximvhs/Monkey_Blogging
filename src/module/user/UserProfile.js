@@ -13,13 +13,19 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase-config";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import { toast } from "react-toastify";
-import { useSearchParams } from "react-router-dom";
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
+} from "firebase/auth";
+import { NavLink } from "react-router-dom";
 
 const UserProfile = () => {
   const {
@@ -82,12 +88,13 @@ const UserProfile = () => {
 
   const handleUpdateFrofile = async (values) => {
     try {
+      const user = auth.currentUser;
       const colRef = doc(db, "users", userList[0].id);
+      await updatePassword(user, values.newpassword);
       await updateDoc(colRef, {
         ...values,
         avatar: image || imageUrl,
       });
-
       toast.success("Update user information successfully!");
     } catch (error) {
       toast.error("Can not update user infomation");
@@ -97,10 +104,15 @@ const UserProfile = () => {
   if (!userInfo) return;
   return (
     <div>
-      <DashboardHeading
-        title="Account information"
-        desc="Update your account information"
-      ></DashboardHeading>
+      <div className=" flex justify-between">
+        <DashboardHeading
+          title="Account information"
+          desc="Update your account information"
+        ></DashboardHeading>
+        <NavLink to="/manage/changepass">
+          <Button kind="ghost">Change password</Button>
+        </NavLink>
+      </div>
       <form onSubmit={handleSubmit(handleUpdateFrofile)}>
         <div className="text-center mb-10">
           <ImageUpload
@@ -163,29 +175,9 @@ const UserProfile = () => {
           </Field>
           <Field></Field>
         </div>
-        {/* <div className="form-layout">
-          <Field>
-            <Label>New Password</Label>
-            <Input
-              control={control}
-              name="newpassword"
-              type="password"
-              placeholder="Enter your password"
-            ></Input>
-          </Field>
-          <Field>
-            <Label>Confirm Password</Label>
-            <Input
-              control={control}
-              name="confirmPassword"
-              type="password"
-              placeholder="Enter your confirm password"
-            ></Input>
-          </Field>
-        </div> */}
         <Button
           kind="primary"
-          className="mx-auto w-[200px]"
+          className=" w-[200px] mx-auto"
           type="submit"
           isLoading={isSubmitting}
           disabled={isSubmitting}

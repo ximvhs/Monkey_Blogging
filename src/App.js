@@ -19,6 +19,7 @@ import UserProfile from "./module/user/UserProfile";
 import CategoryPage from "./pages/CategoryPage";
 import ForgotPassWord from "./pages/ForgotPassWord";
 import { ContactProvider } from "./components/layout/Contact-context";
+import UserChangePass from "./module/user/UserChangePass";
 
 function App() {
   return (
@@ -82,6 +83,10 @@ function App() {
               <Route
                 path="/manage/profile"
                 element={<UserProfile></UserProfile>}
+              ></Route>
+              <Route
+                path="/manage/changepass"
+                element={<UserChangePass></UserChangePass>}
               ></Route>
             </Route>
           </Routes>
