@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "../firebase/firebase-config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { auth, db } from "../firebase/firebase-config";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -23,7 +23,6 @@ function AuthProvider(props) {
             });
           });
         });
-
         setUserInfo(user);
       } else {
         setUserInfo(null);
@@ -32,12 +31,10 @@ function AuthProvider(props) {
   }, []);
   return <AuthContext.Provider value={value} {...props}></AuthContext.Provider>;
 }
-
 function useAuth() {
   const context = useContext(AuthContext);
   if (typeof context === "undefined")
     throw new Error("useAuth must be used within AuthProvider");
   return context;
 }
-
-export { useAuth, AuthProvider };
+export { AuthProvider, useAuth };

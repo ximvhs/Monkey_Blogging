@@ -6,7 +6,6 @@ import HomeFeature from "../module/home/HomeFeature";
 import HomeNewest from "../module/home/HomeNewest";
 import { useContact } from "../components/layout/Contact-context";
 import Contact from "../components/layout/Contact";
-import Menu from "../components/menu/Menu";
 
 const HomePageStyles = styled.div``;
 

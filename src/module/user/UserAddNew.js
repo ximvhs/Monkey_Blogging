@@ -9,11 +9,16 @@ import { Input } from "../../components/input";
 import { ImageUpload } from "../../components/image";
 import { userRole, userStatus } from "../../utils/constants";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth, db } from "../../firebase/firebase-config";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import slugify from "slugify";
 import { toast } from "react-toastify";
+import { useAuth } from "../../contexts/auth-context";
 
 const UserAddNew = () => {
   const {
@@ -46,9 +51,15 @@ const UserAddNew = () => {
     handleDeleteImage,
   } = useFirebaseImage(setValue, getValues);
 
+  const { userInfo } = useAuth();
   const handleCreateUser = async (values) => {
     if (!isValid) return;
     try {
+      // Lưu trạng thái đăng nhập hiện tại
+      const currentUser = auth.currentUser;
+      const currentEmail = currentUser.email;
+      const currentPassword = userInfo.password;
+
       await createUserWithEmailAndPassword(auth, values.email, values.password);
       await addDoc(collection(db, "users"), {
         fullname: values.fullname,
@@ -64,8 +75,12 @@ const UserAddNew = () => {
         role: Number(values.role),
         createdAt: serverTimestamp(),
       });
-      // console.log("values: ", values);
       toast.success(`Create new user with email: ${values.email} successfully`);
+
+      await signOut(auth);
+
+      // Đăng nhập lại vào tài khoản ban đầu
+      await signInWithEmailAndPassword(auth, currentEmail, currentPassword);
       reset({
         fullname: "",
         email: "",
@@ -94,7 +109,7 @@ const UserAddNew = () => {
       <form onSubmit={handleSubmit(handleCreateUser)}>
         <div className="w-[200px] h-[200px] mx-auto rounded-full mb-10">
           <ImageUpload
-            className=" !rounded-full mx-auto j-full"
+            className=" !rounded-full mx-auto h-full"
             onChange={handleSelectImage}
             progress={progress}
             image={image}
