@@ -29,7 +29,9 @@ import useFirebaseImage from "../../hooks/useFirebaseImage";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-Quill.register("modules/imageUploader", ImageUploader);
+if (!Quill.imports["modules/imageUploader"]) {
+  Quill.register("modules/imageUploader", ImageUploader);
+}
 const PostUpdate = () => {
   const [params] = useSearchParams();
   const postId = params.get("id");
