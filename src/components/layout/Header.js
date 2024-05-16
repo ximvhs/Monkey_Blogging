@@ -220,7 +220,11 @@ const Header = () => {
           ) : (
             <div className="header-auth">
               <Link to="/manage/profile" className="header-avatar">
-                <img src={userInfo?.avatar} alt="avatar" />
+                <img
+                  src={userInfo.avatar ? userInfo.avatar : "./NoAvatar.png"}
+                  // src={userInfo?.avatar}
+                  alt="avatar"
+                />
               </Link>
               <Menu className="header-auth-menu"></Menu>
             </div>

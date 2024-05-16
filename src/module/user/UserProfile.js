@@ -107,7 +107,7 @@ const UserProfile = () => {
             className="!w-[200px] h-[200px] !rounded-full min-h-0 mx-auto"
             onChange={handleSelectImage}
             progress={progress}
-            image={userInfo.avatar || imageUrl}
+            image={image || imageUrl}
             handleDeleteImage={handleDeleteImage}
           ></ImageUpload>
         </div>

@@ -23,6 +23,11 @@ const DashboardHeaderStyles = styled.div`
   .header-avatar {
     width: 52px;
     height: 52px;
+    border: solid 3px ${(props) => props.theme.primary};
+    border-radius: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
     img {
       width: 100%;
       height: 100%;
@@ -50,7 +55,11 @@ const DashboardHeader = () => {
           Write new post
         </Button>
         <Link to="manage/profile" className="header-avatar">
-          <img src={userInfo?.avatar} alt="" />
+          <img
+            src={userInfo.avatar ? userInfo.avatar : "../NoAvatar.png"}
+            // src={userInfo?.avatar}
+            alt="avatar"
+          />
         </Link>
       </div>
     </DashboardHeaderStyles>
