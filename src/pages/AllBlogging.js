@@ -17,7 +17,7 @@ const AllBloggingStyles = styled.div`
       ${(props) => props.theme.secondary}
     );
   }
-  .sc-dIouRR.hSFREz {
+  .post-item {
     padding: 20px;
     border-radius: 16px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
@@ -102,7 +102,11 @@ const AllBlogging = () => {
           <Heading>Tất cả bài viết</Heading>
           <div className="grid-layout">
             {posts.map((item) => (
-              <PostItem key={item.id} data={item}></PostItem>
+              <PostItem
+                key={item.id}
+                data={item}
+                className="post-item"
+              ></PostItem>
             ))}
           </div>
         </div>

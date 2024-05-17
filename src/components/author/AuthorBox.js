@@ -16,7 +16,7 @@ const AuthorBox = ({ userId = "" }) => {
   }, [userId]);
   if (!userId || !user.username) return null;
   return (
-    <div className="author">
+    <div className="author p-[20px]">
       <div className="author-image">
         <img src={user?.avatar} alt="" />
       </div>

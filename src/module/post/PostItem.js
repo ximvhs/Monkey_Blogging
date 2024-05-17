@@ -31,14 +31,14 @@ const PostItemStyles = styled.div`
   }
 `;
 
-const PostItem = ({ data }) => {
+const PostItem = ({ data, className = "" }) => {
   if (!data) return null;
   const date = data?.createdAt?.seconds
     ? new Date(data?.createdAt?.seconds * 1000)
     : new Date();
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
   return (
-    <PostItemStyles>
+    <PostItemStyles className={className}>
       <PostImage url={data.image} alt="" to={data.slug}></PostImage>
       <PostCategory to={data.category?.slug}>
         {data.category?.name}

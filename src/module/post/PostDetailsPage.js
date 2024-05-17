@@ -59,7 +59,7 @@ const PostDetailsPageStyles = styled.div`
     }
     &-content {
       flex: 1;
-      padding: 20px;
+      padding: 0 20px;
     }
     &-name {
       font-weight: bold;
