@@ -10,14 +10,18 @@ const PostNewestLargeStyles = styled.div`
     &-image {
       display: block;
       margin-bottom: 20px;
-      height: 433px;
+      height: 372px;
       border-radius: 16px;
     }
     &-category {
       margin-bottom: 16px;
     }
+    &-meta {
+      color: ${(props) => props.theme.gray98};
+    }
     &-title {
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      font-weight: bold;
     }
   }
   @media screen and (max-width: 1023.98px) {
@@ -27,27 +31,30 @@ const PostNewestLargeStyles = styled.div`
   }
 `;
 
-const PostNewestLarge = ({ data }) => {
+const PostNewestLarge = ({ data, className = "" }) => {
   const date = data?.createdAt?.seconds
     ? new Date(data?.createdAt?.seconds * 1000)
     : new Date();
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
   if (!data.id) return null;
   return (
-    <PostNewestLargeStyles>
-      <PostImage url={data?.image} alt="" to={data?.slug}></PostImage>
-      <PostCategory to={data?.category?.slug}>
-        {data?.category?.name}
-      </PostCategory>
-      <PostTitle to={data?.slug} size="big">
-        {data?.title}
-      </PostTitle>
-      <PostMeta
-        to={slugify(data?.user?.username || "", { lower: true })}
-        authorName={data?.user?.fullname}
-        date={formatDate}
-      ></PostMeta>
-    </PostNewestLargeStyles>
+    <div className={className}>
+      <PostNewestLargeStyles>
+        <PostImage url={data?.image} alt="" to={data?.slug}></PostImage>
+        <PostCategory to={data?.category?.slug}>
+          {data?.category?.name}
+        </PostCategory>
+        <PostTitle to={data?.slug} size="big">
+          {data?.title}
+        </PostTitle>
+        <PostMeta
+          className="post-meta"
+          to={slugify(data?.user?.username || "", { lower: true })}
+          authorName={data?.user?.fullname}
+          date={formatDate}
+        ></PostMeta>
+      </PostNewestLargeStyles>
+    </div>
   );
 };
 

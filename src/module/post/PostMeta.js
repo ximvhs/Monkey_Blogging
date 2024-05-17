@@ -7,7 +7,8 @@ const PostMetaStyles = styled.div`
   align-items: center;
   gap: 12px;
   font-size: 14px;
-  font-weight: 600;
+  /* font-weight: 600; */
+
   color: inherit;
   .post {
     &-dot {

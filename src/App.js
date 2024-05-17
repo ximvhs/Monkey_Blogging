@@ -20,6 +20,7 @@ import CategoryPage from "./pages/CategoryPage";
 import ForgotPassWord from "./pages/ForgotPassWord";
 import { ContactProvider } from "./components/layout/Contact-context";
 import UserChangePass from "./module/user/UserChangePass";
+import AllBlogging from "./pages/AllBlogging";
 
 function App() {
   return (
@@ -34,6 +35,11 @@ function App() {
               path="/forgot-password"
               element={<ForgotPassWord></ForgotPassWord>}
             ></Route>
+            <Route
+              path="/all-blogging"
+              element={<AllBlogging></AllBlogging>}
+            ></Route>
+
             <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
             <Route
               path="/:slug"

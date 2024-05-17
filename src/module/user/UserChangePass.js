@@ -135,7 +135,7 @@ const UserChangePass = () => {
   };
   return (
     <ChangePassStyles>
-      <form onSubmit={handleUpdateFrofile} className="flex flex-col gap-10">
+      <form onSubmit={handleUpdateFrofile} className="flex flex-col gap-5">
         <div>
           <label htmlFor="current_password">Current password</label>
           <input

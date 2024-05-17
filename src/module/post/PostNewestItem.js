@@ -33,6 +33,10 @@ const PostNewestItemStyles = styled.div`
     }
     &-title {
       margin-bottom: 8px;
+      font-weight: bold;
+    }
+    &-meta {
+      color: ${(props) => props.theme.gray98};
     }
   }
   @media screen and (max-width: 1023.98px) {
@@ -54,11 +58,14 @@ const PostNewestItem = ({ data }) => {
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
   return (
     <PostNewestItemStyles>
-      <PostImage url={data.image} alt="" to="/"></PostImage>
+      <PostImage url={data.image} alt="" to={data?.slug}></PostImage>
       <div className="post-content">
         <PostCategory type="secondary">{data.category?.name}</PostCategory>
-        <PostTitle size="normal">{data.title}</PostTitle>
+        <PostTitle size="normal" to={data?.slug}>
+          {data.title}
+        </PostTitle>
         <PostMeta
+          className="post-meta"
           to={slugify(data?.user?.username || "", { lower: true })}
           authorName={data?.user?.fullname}
           date={formatDate}

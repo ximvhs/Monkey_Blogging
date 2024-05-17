@@ -13,18 +13,13 @@ import {
   getDoc,
   getDocs,
   query,
-  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase-config";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import { toast } from "react-toastify";
-import {
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  updatePassword,
-} from "firebase/auth";
+import { updatePassword } from "firebase/auth";
 import { NavLink } from "react-router-dom";
 
 const UserProfile = () => {

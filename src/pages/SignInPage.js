@@ -82,9 +82,7 @@ const SignInPage = () => {
           </Label>
           <InputPasswordToggle control={control}></InputPasswordToggle>
           <div className="nav-link">
-            <NavLink to={"/forgot-password"}>
-              You don't have an account?
-            </NavLink>
+            <NavLink to={"/forgot-password"}>You forgot your password?</NavLink>
           </div>
         </Field>
         <Button

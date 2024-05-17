@@ -15,7 +15,7 @@ const PostFeatureItemStyles = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 16px;
     }
     &-overlay {
       position: absolute;
@@ -23,7 +23,7 @@ const PostFeatureItemStyles = styled.div`
       border-radius: 16px;
       background-color: rgba(0, 0, 0, 0.75);
       mix-blend-mode: multiply;
-      opacity: 0.6;
+      opacity: 0.8;
     }
     &-content {
       position: absolute;
@@ -31,6 +31,9 @@ const PostFeatureItemStyles = styled.div`
       z-index: 10;
       padding: 20px;
       color: white;
+    }
+    &-title {
+      font-weight: bold;
     }
     &-top {
       display: flex;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Heading from "../../components/layout/Heading";
 import PostNewestLarge from "../post/PostNewestLarge";
 import PostNewestItem from "../post/PostNewestItem";
-import PostItem from "../post/PostItem";
 import {
   collection,
   limit,
@@ -21,9 +20,17 @@ const HomeNewestStyles = styled.div`
     margin-bottom: 40px;
     align-items: start;
   }
+  .post_large {
+    padding: 28px 20px;
+    border-radius: 16px;
+    background-image: linear-gradient(to right bottom, #2ebac13d, #a4d96c45);
+  }
+  .post-category {
+    background-color: white;
+  }
   .sidebar {
     padding: 28px 20px;
-    background-color: #f3edff;
+    background-image: linear-gradient(to right bottom, #2ebac13d, #a4d96c45);
     border-radius: 16px;
   }
   @media screen and (max-width: 1023.98px) {
@@ -64,7 +71,10 @@ const HomeNewest = () => {
       <div className="container">
         <Heading>Mới nhất</Heading>
         <div className="layout">
-          <PostNewestLarge data={first}></PostNewestLarge>
+          <PostNewestLarge
+            className="post_large"
+            data={first}
+          ></PostNewestLarge>
           {other.length > 0 && (
             <div className="sidebar">
               {other.length > 0 &&

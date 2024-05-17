@@ -46,15 +46,15 @@ const HeaderStyles = styled.header`
           opacity: 0.8;
           :before {
             content: "";
-            width: 110%;
-            height: 3px;
+            width: 100%;
+            height: 2px;
             background-image: linear-gradient(
               to right bottom,
               ${(props) => props.theme.primary},
               ${(props) => props.theme.secondary}
             );
             position: absolute;
-            top: 26px;
+            top: 28px;
             left: 0;
             transform: translate(0, -150%);
             animation: light 0.3s ease-in;
@@ -168,7 +168,7 @@ const Header = () => {
       title: "Home",
     },
     {
-      url: "/blog",
+      url: "/all-blogging",
       title: "Blog",
     },
     {
