@@ -65,7 +65,7 @@ const HomeBanner = () => {
       <div className="container">
         <div className="banner">
           <div className="banner-content">
-            <h1 className="banner-heading">Monkey Blogging</h1>
+            <h1 className="banner-heading">XimVHS Blogging</h1>
             <p className="banner-desc">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

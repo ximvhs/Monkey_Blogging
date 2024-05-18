@@ -152,6 +152,7 @@ const PostUpdate = () => {
     const docRef = doc(db, "posts", postId);
     await updateDoc(docRef, {
       ...values,
+      categoryId: values.category.id,
       status: Number(values.status),
       content,
     });

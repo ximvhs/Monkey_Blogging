@@ -38,7 +38,7 @@ const Authentication = ({ children }) => {
           <img srcSet="/monkey.png 2x" alt="monkey-blogging" className="logo" />
         </NavLink>
       </div>
-      <h1 className="heading">Monkey Blogging</h1>
+      <h1 className="heading">XimVHS Blogging</h1>
       {children}
     </AuthenticationStyle>
   );

@@ -88,7 +88,6 @@ const AllBlogging = () => {
     }
     fetchData();
   }, []);
-  console.log("posts: ", posts);
   if (posts.length <= 0)
     return (
       <Layout>

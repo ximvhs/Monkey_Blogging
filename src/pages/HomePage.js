@@ -6,6 +6,7 @@ import HomeFeature from "../module/home/HomeFeature";
 import HomeNewest from "../module/home/HomeNewest";
 import { useContact } from "../components/layout/Contact-context";
 import Contact from "../components/layout/Contact";
+import Footer from "../module/home/Footer";
 
 const HomePageStyles = styled.div``;
 
@@ -18,6 +19,7 @@ const HomePage = () => {
         <HomeBanner></HomeBanner>
         <HomeFeature></HomeFeature>
         <HomeNewest></HomeNewest>
+        <Footer></Footer>
       </Layout>
     </HomePageStyles>
   );
