@@ -5,7 +5,6 @@ import Field from "../../components/field/Field";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
-import { Radio } from "../../components/checkbox";
 import { Dropdown } from "../../components/dropdown";
 import slugify from "slugify";
 import { imgbbAPI, postStatus } from "../../utils/constants";
@@ -49,7 +48,6 @@ const PostAddNew = () => {
       category: {},
     },
   });
-  const watchStatus = watch("status");
   const watchHot = watch("hot");
   const {
     image,
@@ -100,13 +98,14 @@ const PostAddNew = () => {
       });
       toast.success("Chúc mừng bạn đã đăng bài thành công");
       reset({
-        title: "",
-        slug: "",
-        status: 2,
-        category: {},
         author: "",
+        category: {},
+        title: "",
         hot: false,
         image: "",
+        slug: "",
+        status: 2,
+        user: { id: userInfo.uid },
       });
       setContent("");
       setSelectCategory({});
@@ -114,6 +113,7 @@ const PostAddNew = () => {
       setProgress(0);
     } catch (error) {
       setLoading(false);
+      toast.error("Có lỗi xảy ra khi đăng bài");
     } finally {
       setLoading(false);
     }
@@ -179,6 +179,7 @@ const PostAddNew = () => {
     });
     setSelectCategory(item);
   };
+
   return (
     <PostAddNewStyles>
       <h1 className="dashboard-heading">Add new post</h1>
@@ -251,7 +252,7 @@ const PostAddNew = () => {
           </div>
         </Field>
         <Button
-          type="submit "
+          type="submit"
           className="mx-auto w-[180px]"
           isLoading={loading}
           disabled={loading}
