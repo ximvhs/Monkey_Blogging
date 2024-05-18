@@ -19,6 +19,7 @@ const FooterStyles = styled.div`
         margin-bottom: 20px;
         & > p {
           /* color: #c5c5c5; */
+          line-height: 26px;
         }
       }
       &-header {

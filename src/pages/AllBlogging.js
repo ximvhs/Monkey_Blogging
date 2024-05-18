@@ -2,17 +2,9 @@ import styled from "styled-components";
 import Heading from "../components/layout/Heading";
 import Layout from "../components/layout/Layout";
 import { useEffect, useState } from "react";
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
 import PostItem from "../module/post/PostItem";
-import { postStatus } from "../utils/constants";
-import { get } from "lodash";
 
 const AllBloggingStyles = styled.div`
   .header-line {
