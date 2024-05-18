@@ -43,8 +43,9 @@ const CategoryUpdate = () => {
     const colRef = doc(db, "categories", categoryId);
     await updateDoc(colRef, {
       name: values.name,
+
       slug: slugify(values.slug || values.name, { lower: true }),
-      status: values.status,
+      status: Number(values.status),
     });
     toast.success("Update category successfully!");
     navigate("/manage/category");

@@ -18,7 +18,7 @@ const HomeFeature = () => {
     const colRef = collection(db, "posts");
     const queries = query(
       colRef,
-      where("status", "==", 2),
+      where("status", "==", 1),
       where("hot", "==", true),
       limit(3)
     );

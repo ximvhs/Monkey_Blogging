@@ -49,7 +49,7 @@ const HomeNewest = () => {
     const colRef = collection(db, "posts");
     const queries = query(
       colRef,
-      where("status", "==", 2),
+      where("status", "==", 1),
       where("hot", "==", false),
       limit(4)
     );

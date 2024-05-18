@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 
 const PostRelatedStyles = styled.div`
+  padding-bottom: 40px;
   .post-item {
     padding: 20px;
     border-radius: 16px;
@@ -65,7 +66,8 @@ const PostRelated = ({ categoryId = "" }) => {
   };
   // end swiper sileder
 
-  if (!categoryId || posts.length <= 0) return null;
+  console.log("posts.length: ", posts.length);
+  if (!categoryId || posts.length < 4) return null;
   return (
     <PostRelatedStyles>
       <div className="post-related">

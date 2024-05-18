@@ -12,7 +12,7 @@ import parse from "html-react-parser";
 import AuthorBox from "../../components/author/AuthorBox";
 import PostRelated from "./PostRelated";
 const PostDetailsPageStyles = styled.div`
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
   .post {
     &-header {
       display: flex;
@@ -37,7 +37,7 @@ const PostDetailsPageStyles = styled.div`
     }
     &-content {
       max-width: 700px;
-      margin: 80px auto;
+      margin: 40px auto;
     }
   }
   .author {

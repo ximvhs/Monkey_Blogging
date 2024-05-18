@@ -2,9 +2,17 @@ import styled from "styled-components";
 import Heading from "../components/layout/Heading";
 import Layout from "../components/layout/Layout";
 import { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
 import PostItem from "../module/post/PostItem";
+import { postStatus } from "../utils/constants";
+import { get } from "lodash";
 
 const AllBloggingStyles = styled.div`
   .header-line {
@@ -65,20 +73,22 @@ const AllBlogging = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const docRef = collection(db, "posts");
-      onSnapshot(docRef, (snapshot) => {
-        const results = [];
+      const colRef = collection(db, "posts");
+      const q = query(colRef, where("status", "==", 1));
+      onSnapshot(q, (snapshot) => {
+        let result = [];
         snapshot.forEach((doc) => {
-          results.push({
+          result.push({
             id: doc.id,
             ...doc.data(),
           });
         });
-        setPosts(results);
+        setPosts(result);
       });
     }
     fetchData();
   }, []);
+  console.log("posts: ", posts);
   if (posts.length <= 0)
     return (
       <Layout>

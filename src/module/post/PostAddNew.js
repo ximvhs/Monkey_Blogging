@@ -183,7 +183,7 @@ const PostAddNew = () => {
     <PostAddNewStyles>
       <h1 className="dashboard-heading">Add new post</h1>
       <form onSubmit={handleSubmit(addPostHandler)}>
-        <div className="grid grid-cols-2 gap-x-10 mb-10">
+        <div className="grid grid-cols-2 gap-x-10 ">
           <Field>
             <Label>Title</Label>
             <Input
@@ -192,45 +192,6 @@ const PostAddNew = () => {
               name="title"
               required
             ></Input>
-          </Field>
-          <Field>
-            <Label>Slug</Label>
-            <Input
-              control={control}
-              placeholder="Enter your slug"
-              name="slug"
-            ></Input>
-          </Field>
-        </div>
-        <div className="grid grid-cols-2 gap-x-10 mb-10">
-          <Field>
-            <Label>Status</Label>
-            <div className="flex items-center gap-x-5">
-              <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === postStatus.APPROVED}
-                value={postStatus.APPROVED}
-              >
-                Approved
-              </Radio>
-              <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === postStatus.PENDING}
-                value={postStatus.PENDING}
-              >
-                Pending
-              </Radio>
-              <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === postStatus.REJECTED}
-                value={postStatus.REJECTED}
-              >
-                Reject
-              </Radio>
-            </div>
           </Field>
           <Field>
             <Label>Author</Label>

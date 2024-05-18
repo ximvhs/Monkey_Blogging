@@ -10,7 +10,7 @@ import Toggle from "../../components/toggle/Toggle";
 import { Button } from "../../components/button";
 import { imgbbAPI, postStatus } from "../../utils/constants";
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageUploader from "quill-image-uploader";
@@ -152,6 +152,7 @@ const PostUpdate = () => {
     const docRef = doc(db, "posts", postId);
     await updateDoc(docRef, {
       ...values,
+      status: Number(values.status),
       content,
     });
     toast.success("Update post successfully");
@@ -233,7 +234,7 @@ const PostUpdate = () => {
                 name="status"
                 control={control}
                 checked={Number(watchStatus) === postStatus.APPROVED}
-                value={postStatus.APPROVED}
+                value={Number(postStatus.APPROVED)}
               >
                 Approved
               </Radio>
@@ -241,7 +242,7 @@ const PostUpdate = () => {
                 name="status"
                 control={control}
                 checked={Number(watchStatus) === postStatus.PENDING}
-                value={postStatus.PENDING}
+                value={Number(postStatus.PENDING)}
               >
                 Pending
               </Radio>
@@ -249,7 +250,7 @@ const PostUpdate = () => {
                 name="status"
                 control={control}
                 checked={Number(watchStatus) === postStatus.REJECTED}
-                value={postStatus.REJECTED}
+                value={Number(postStatus.REJECTED)}
               >
                 Reject
               </Radio>

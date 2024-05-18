@@ -181,7 +181,7 @@ const PostManage = () => {
                   <td>
                     <span className="text-gray-500">{post.user?.username}</span>
                   </td>
-                  <td>{renderPostStatus(post.status)}</td>
+                  <td>{renderPostStatus(Number(post.status))}</td>
                   <td>
                     <div className="flex items-center text-gray-500 gap-x-3">
                       <ActionView
