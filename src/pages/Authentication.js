@@ -30,7 +30,7 @@ const AuthenticationStyle = styled.div`
   }
 `;
 
-const Authentication = ({ children }) => {
+const Authentication = ({ children, title }) => {
   return (
     <AuthenticationStyle>
       <div className="text-center">
@@ -38,7 +38,7 @@ const Authentication = ({ children }) => {
           <img srcSet="/monkey.png 2x" alt="monkey-blogging" className="logo" />
         </NavLink>
       </div>
-      <h1 className="heading">XimVHS Blogging</h1>
+      <h1 className="heading">{title}</h1>
       {children}
     </AuthenticationStyle>
   );

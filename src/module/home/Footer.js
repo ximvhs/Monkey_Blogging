@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const FooterStyles = styled.div`
+  position: static;
+  bottom: 0;
+  right: 0;
+  left: 0;
   min-height: 220px;
   padding: 40px 0 20px 0;
   background-image: linear-gradient(
@@ -18,7 +22,6 @@ const FooterStyles = styled.div`
       &-item {
         margin-bottom: 20px;
         & > p {
-          /* color: #c5c5c5; */
           line-height: 26px;
         }
       }
@@ -57,7 +60,7 @@ const Footer = () => {
                 <img src="./monkey.png" alt="#" />
                 <p>XimVHS Blogging</p>
               </div>
-              <p>Điện thoại: 033 647 5713</p>
+              <p>Tel: 033 647 5713</p>
               <p>Email: ximvhs26092002@gmail.com</p>
               <p>
                 46Y tổ 9C khu phố 12, Phường An Bình, TP.Biên Hòa, Tỉnh Đồng Nai
@@ -67,14 +70,14 @@ const Footer = () => {
               <div className="footer-top-header">
                 <p>Về XimVHS Blogging</p>
               </div>
-              <p>Giới thiệu</p>
-              <p>Liên hê</p>
-              <p>Bảo mật</p>
-              <p>Điều khoản</p>
+              <p>Introduce</p>
+              <p>Contact</p>
+              <p>Security</p>
+              <p>Rules</p>
             </div>
             <div className="footer-top-item">
               <div className="footer-top-header">
-                <p>Theo dõi chúng tôi trên </p>
+                <p>Follow me on</p>
               </div>
               <p>Facebook</p>
               <p>instagram</p>
@@ -82,7 +85,7 @@ const Footer = () => {
             </div>
             <div className="footer-top-item">
               <div className="footer-top-header">
-                <p>Dự án</p>
+                <p>Project</p>
               </div>
               <p>Blog</p>
               <p>Clone Shoppe</p>
@@ -90,7 +93,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2024 XimVHS blogging. Nơi chia sẻ những blog chất lượng.</p>
+            <p>© 2024 XimVHS blogging. A place to share quality blogs.</p>
           </div>
         </div>
       </div>

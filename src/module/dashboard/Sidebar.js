@@ -142,8 +142,8 @@ const Sidebar = () => {
           confirmButtonText: "Yes",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            toast.success("Delete user successfully");
-            Swal.fire("Deleted!", "The user has been deleted.", "success");
+            toast.success("Log out successfully");
+            Swal.fire("Log out!", "Log out successfully.", "success");
             navigate("/");
             signOut(auth);
           }

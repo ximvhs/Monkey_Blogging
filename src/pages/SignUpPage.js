@@ -90,7 +90,7 @@ const SignUpPage = () => {
   }, []);
 
   return (
-    <Authentication>
+    <Authentication title="Sign up to XimVHS Blogging">
       <form onSubmit={handleSubmit(handleSignUp)}>
         {/* Start FullName */}
         <Field>

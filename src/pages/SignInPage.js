@@ -61,7 +61,7 @@ const SignInPage = () => {
     }
   };
   return (
-    <Authentication>
+    <Authentication title="Sign in to XimVHS Blogging">
       <form onSubmit={handleSubmit(handleSignIn)}>
         <Field>
           <Label htmlFor="email" className="label">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostFeatureItem from "../post/PostFeatureItem";
 import Heading from "../../components/layout/Heading";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import {
   collection,
   limit,

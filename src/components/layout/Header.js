@@ -209,20 +209,30 @@ const Header = () => {
             })}
           </ul>
           {!userInfo ? (
-            <Button
-              type="button"
-              height="56px"
-              className="header-button"
-              to="/sign-in"
-            >
-              Login
-            </Button>
+            <div className="flex gap-5">
+              <Button
+                type="button"
+                height="56px"
+                className="header-button"
+                to="/sign-in"
+                kind="ghost"
+              >
+                Log in
+              </Button>
+              <Button
+                type="button"
+                height="56px"
+                className="header-button"
+                to="/sign-up"
+              >
+                Sign up
+              </Button>
+            </div>
           ) : (
             <div className="header-auth">
               <Link to="/manage/profile" className="header-avatar">
                 <img
                   src={userInfo.avatar ? userInfo.avatar : "./NoAvatar.png"}
-                  // src={userInfo?.avatar}
                   alt="avatar"
                 />
               </Link>

@@ -42,7 +42,7 @@ const ForgotPassWord = () => {
       });
   };
   return (
-    <Authentication>
+    <Authentication title="Forgot password?">
       <form onSubmit={handleSubmit(handleSignIn)}>
         <Field>
           <Label htmlFor="email" className="label">
