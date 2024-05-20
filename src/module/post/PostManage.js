@@ -143,6 +143,7 @@ const PostManage = () => {
       documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
+
   if (userInfo.role !== userRole.ADMIN) {
     return (
       <div>
@@ -194,7 +195,7 @@ const PostManage = () => {
                     </td>
                     <td>
                       <span className="text-gray-500">
-                        {post.user?.username}
+                        {post?.author || post.user?.username}
                       </span>
                     </td>
                     <td>{renderPostStatus(Number(post.status))}</td>
@@ -279,7 +280,9 @@ const PostManage = () => {
                     <span className="text-gray-500">{post.category?.name}</span>
                   </td>
                   <td>
-                    <span className="text-gray-500">{post.user?.username}</span>
+                    <span className="text-gray-500">
+                      {post?.author || post.user?.username}
+                    </span>
                   </td>
                   <td>{renderPostStatus(Number(post.status))}</td>
                   <td>
