@@ -16,10 +16,12 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
-import { categoryStatus } from "../../utils/constants";
+import { categoryStatus, userRole } from "../../utils/constants";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
+import { useAuth } from "../../contexts/auth-context";
+import UserNoAd from "../user/UserNoAd";
 
 const number_show = 5;
 const number_next_show = 1;
@@ -111,6 +113,8 @@ const CategoryManage = () => {
       documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
+  const { userInfo } = useAuth();
+  if (userInfo.role !== userRole.ADMIN) return <UserNoAd></UserNoAd>;
   return (
     <div>
       <DashboardHeading title="Categories" desc="Manage your category">

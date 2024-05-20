@@ -8,7 +8,7 @@ import { ImageUpload } from "../../components/image";
 import { Dropdown } from "../../components/dropdown";
 import Toggle from "../../components/toggle/Toggle";
 import { Button } from "../../components/button";
-import { imgbbAPI, postStatus } from "../../utils/constants";
+import { imgbbAPI, postStatus, userRole } from "../../utils/constants";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
@@ -28,6 +28,7 @@ import { db } from "../../firebase/firebase-config";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useAuth } from "../../contexts/auth-context";
 
 if (!Quill.imports["modules/imageUploader"]) {
   Quill.register("modules/imageUploader", ImageUploader);
@@ -153,14 +154,109 @@ const PostUpdate = () => {
     await updateDoc(docRef, {
       ...values,
       categoryId: values.category.id,
-      status: Number(values.status),
+      hot: values.hot || false,
+      status: Number(values.status) || 2,
       content,
     });
     toast.success("Update post successfully");
   };
+  const { userInfo } = useAuth();
 
   if (!postId) return null;
+  if (userInfo.role !== userRole.ADMIN)
+    return (
+      <Fragment>
+        <DashboardHeading
+          title="Update post "
+          desc="Update post content"
+        ></DashboardHeading>
 
+        <form onSubmit={handleSubmit(updatePostHandler)}>
+          <div className="grid grid-cols-2 gap-x-10 mb-10">
+            <Field>
+              <Label>Title</Label>
+              <Input
+                control={control}
+                placeholder="Enter your title"
+                name="title"
+                required
+              ></Input>
+            </Field>
+            <Field>
+              <Label>Slug</Label>
+              <Input
+                control={control}
+                placeholder="Enter your slug"
+                name="slug"
+              ></Input>
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-x-10 mb-10">
+            <Field>
+              <Label>Category</Label>
+              <Dropdown>
+                <Dropdown.Select
+                  placeholder={`${
+                    selectCategory?.name || "Select the category"
+                  }`}
+                ></Dropdown.Select>
+                <Dropdown.List>
+                  {categories.length > 0 &&
+                    categories.map((item) => (
+                      <Dropdown.Option
+                        key={item.id}
+                        onClick={() => handleClickOption(item)}
+                      >
+                        {item.name}
+                      </Dropdown.Option>
+                    ))}
+                </Dropdown.List>
+              </Dropdown>
+            </Field>
+            <Field>
+              <Label>Author</Label>
+              <Input
+                name="author"
+                control={control}
+                placeholder="Find the author"
+              ></Input>
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-x-10 mb-10">
+            <Field>
+              <Label>Image</Label>
+              <ImageUpload
+                onChange={handleSelectImage}
+                progress={progress}
+                image={image}
+                handleDeleteImage={handleDeleteImage}
+              ></ImageUpload>
+            </Field>
+          </div>
+          <Field>
+            <Label>Content</Label>
+            <div className="w-full entry-content">
+              <ReactQuill
+                modules={modules}
+                theme="snow"
+                value={content}
+                onChange={setContent}
+              />
+            </div>
+          </Field>
+          <Button
+            type="submit"
+            className="mx-auto w-[180px]"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Add new post
+          </Button>
+        </form>
+      </Fragment>
+    );
+
+  // Nếu là admin
   return (
     <Fragment>
       <DashboardHeading

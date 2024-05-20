@@ -1,8 +1,13 @@
 import { Button } from "../../components/button";
+import { useAuth } from "../../contexts/auth-context";
+import { userRole } from "../../utils/constants";
 import DashboardHeading from "../dashboard/DashboardHeading";
+import UserNoAd from "./UserNoAd";
 import UserTable from "./UserTable";
 
 const UserManage = () => {
+  const { userInfo } = useAuth();
+  if (userInfo.role !== userRole.ADMIN) return <UserNoAd></UserNoAd>;
   return (
     <div>
       <DashboardHeading

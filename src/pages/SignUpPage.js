@@ -9,13 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase/firebase-config";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { NavLink, useNavigate } from "react-router-dom";
 import Authentication from "./Authentication";
 import InputPasswordToggle from "../components/input/InputPasswordToggle";
@@ -45,22 +39,16 @@ const SignUpPage = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-  console.log("isValid: ", isValid);
 
   const handleSignUp = async (values) => {
     if (!isValid) return;
-    const user = await createUserWithEmailAndPassword(
-      auth,
-      values.email,
-      values.password
-    );
+    await createUserWithEmailAndPassword(auth, values.email, values.password);
     await updateProfile(auth.currentUser, {
       displayName: values.fullname,
       photoURL:
         "https://images.unsplash.com/photo-1669723027015-9a3cfab8c5df?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     });
 
-    const colRef = collection(db, "users");
     await setDoc(doc(db, "users", auth.currentUser.uid), {
       name: values.fullname,
       email: values.email,

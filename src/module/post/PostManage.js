@@ -26,11 +26,14 @@ const number_show_post = 10;
 const number_next_show_post = 1;
 
 const PostManage = () => {
+  const { userInfo } = useAuth();
   const [postList, setPostList] = useState([]);
+  const [postListUser, setPostListUser] = useState([]);
   const [filter, setFilter] = useState("");
   const [lastDoc, setLastDoc] = useState();
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchData() {
       const colRef = collection(db, "posts");
@@ -62,6 +65,26 @@ const PostManage = () => {
     }
     fetchData();
   }, [filter]);
+
+  // Lấy tất cả bài viết của tài khoản đang đăng nhập
+  useEffect(() => {
+    async function fetchData() {
+      const colRef = collection(db, "posts");
+      const q = query(colRef, where("userId", "==", userInfo.uid));
+
+      onSnapshot(q, (snapshot) => {
+        let results = [];
+        snapshot.forEach((doc) => {
+          results.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        setPostListUser(results);
+      });
+    }
+    fetchData();
+  }, [userInfo.uid]);
   async function handleDeletePost(postId) {
     const docRef = doc(db, "posts", postId);
     Swal.fire({
@@ -119,8 +142,81 @@ const PostManage = () => {
       documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
-  const { userInfo } = useAuth();
-  // if (userInfo.role !== userRole.ADMIN) return null;
+  if (userInfo.role !== userRole.ADMIN) {
+    return (
+      <div>
+        <DashboardHeading
+          title="All posts"
+          desc="Manage all your posts"
+        ></DashboardHeading>
+        <Table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Post</th>
+              <th>Category</th>
+              <th>Author</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {postListUser.length > 0 &&
+              postListUser.map((post) => {
+                const date = post?.createdAt?.seconds
+                  ? new Date(post?.createdAt?.seconds * 1000)
+                  : new Date();
+                const formatDate = new Date(date).toLocaleDateString("vi-VI");
+
+                return (
+                  <tr key={post.id}>
+                    <td>{post.id?.slice(0, 5) + "..."}</td>
+                    <td className="!pr-[100px]">
+                      <div className="flex items-center gap-x-3">
+                        <img
+                          src={post.image}
+                          alt=""
+                          className="w-[66px] h-[55px] rounded object-cover"
+                        />
+                        <div className="flex-1">
+                          <h3 className="font-semibold">{post.title}</h3>
+                          <time className="text-sm text-gray-500">
+                            Date: {formatDate}
+                          </time>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="text-gray-500">
+                        {post.category?.name}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="text-gray-500">
+                        {post.user?.username}
+                      </span>
+                    </td>
+                    <td>{renderPostStatus(Number(post.status))}</td>
+                    <td>
+                      <div className="flex items-center text-gray-500 gap-x-3">
+                        <ActionView
+                          onClick={() => navigate(`/${post.slug}`)}
+                        ></ActionView>
+                        <ActionEdit
+                          onClick={() =>
+                            navigate(`/manage/update-post?id=${post.id}`)
+                          }
+                        ></ActionEdit>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
+      </div>
+    );
+  }
 
   return (
     <div>

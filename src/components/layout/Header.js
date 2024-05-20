@@ -7,24 +7,6 @@ import Contact from "./Contact";
 import { useContact } from "./Contact-context";
 import Menu from "../menu/Menu";
 
-// const menuLinks = [
-//   {
-//     url: "/",
-//     title: "Home",
-//   },
-//   {
-//     url: "/blog",
-//     title: "Blog",
-//   },
-//   {
-//     url: "/contact",
-//     title: "Contact",
-//     onclick: () => {
-//       setContact(true);
-//     },
-//   },
-// ];
-
 const HeaderStyles = styled.header`
   padding: 20px 0;
   .header-main {
