@@ -8,6 +8,9 @@ const UserNoAd = () => {
         title="No Data"
         desc="Only admin can view"
       ></DashboardHeading>
+      <div className="flex justify-center items-center">
+        <img src="/NoData.png" alt="#" className="w-[550px]" />
+      </div>
     </div>
   );
 };

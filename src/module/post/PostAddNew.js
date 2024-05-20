@@ -85,7 +85,7 @@ const PostAddNew = () => {
     setLoading(true);
     try {
       const cloneValues = { ...values };
-      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+      cloneValues.slug = slugify(values.title, { lower: true });
       cloneValues.status = Number(values.status);
       const colRef = collection(db, "posts");
       await addDoc(colRef, {
@@ -93,6 +93,7 @@ const PostAddNew = () => {
         content: content,
         categoryId: cloneValues.category.id,
         userId: cloneValues.user.id,
+        hot: false,
         image,
         createdAt: serverTimestamp(),
       });
@@ -231,13 +232,6 @@ const PostAddNew = () => {
                   ))}
               </Dropdown.List>
             </Dropdown>
-          </Field>
-          <Field>
-            <Label>Feature post</Label>
-            <Toggle
-              on={watchHot === true}
-              onClick={() => setValue("hot", !watchHot)}
-            ></Toggle>
           </Field>
         </div>
         <Field>

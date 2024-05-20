@@ -167,7 +167,7 @@ const ListBlogging = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="4"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
                   strokeLinecap="round"
@@ -209,7 +209,7 @@ const ListBlogging = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="4"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
                   strokeLinecap="round"

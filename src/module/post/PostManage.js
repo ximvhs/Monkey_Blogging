@@ -85,7 +85,7 @@ const PostManage = () => {
     }
     fetchData();
   }, [userInfo.uid]);
-  async function handleDeletePost(postId) {
+  async function handleDeletePost(postId, userId) {
     const docRef = doc(db, "posts", postId);
     Swal.fire({
       title: "Are you sure?",
@@ -99,8 +99,9 @@ const PostManage = () => {
       if (result.isConfirmed && userInfo?.role === userRole.ADMIN) {
         await deleteDoc(docRef);
         Swal.fire("Deleted!", "Your post has been deleted.", "success");
-      } else {
-        Swal.fire("Failed!", "You have no right to delete post", "warning");
+      } else if (result.isConfirmed && userInfo.uid === userId) {
+        await deleteDoc(docRef);
+        Swal.fire("Deleted!", "Your post has been deleted.", "success");
       }
     });
   }
@@ -207,6 +208,9 @@ const PostManage = () => {
                             navigate(`/manage/update-post?id=${post.id}`)
                           }
                         ></ActionEdit>
+                        <ActionDelete
+                          onClick={() => handleDeletePost(post.id, post.userId)}
+                        ></ActionDelete>
                       </div>
                     </td>
                   </tr>

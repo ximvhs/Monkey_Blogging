@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../firebase/firebase-config";
 import Swal from "sweetalert2";

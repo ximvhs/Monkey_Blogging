@@ -172,7 +172,7 @@ const PostUpdate = () => {
         ></DashboardHeading>
 
         <form onSubmit={handleSubmit(updatePostHandler)}>
-          <div className="grid grid-cols-2 gap-x-10 mb-10">
+          <div className="grid grid-cols-2 gap-x-10">
             <Field>
               <Label>Title</Label>
               <Input
@@ -183,15 +183,24 @@ const PostUpdate = () => {
               ></Input>
             </Field>
             <Field>
-              <Label>Slug</Label>
+              <Label>Author</Label>
               <Input
+                name="author"
                 control={control}
-                placeholder="Enter your slug"
-                name="slug"
+                placeholder="Find the author"
               ></Input>
             </Field>
           </div>
-          <div className="grid grid-cols-2 gap-x-10 mb-10">
+          <div className="grid grid-cols-2 gap-x-10">
+            <Field>
+              <Label>Image</Label>
+              <ImageUpload
+                onChange={handleSelectImage}
+                progress={progress}
+                image={image}
+                handleDeleteImage={handleDeleteImage}
+              ></ImageUpload>
+            </Field>
             <Field>
               <Label>Category</Label>
               <Dropdown>
@@ -212,25 +221,6 @@ const PostUpdate = () => {
                     ))}
                 </Dropdown.List>
               </Dropdown>
-            </Field>
-            <Field>
-              <Label>Author</Label>
-              <Input
-                name="author"
-                control={control}
-                placeholder="Find the author"
-              ></Input>
-            </Field>
-          </div>
-          <div className="grid grid-cols-2 gap-x-10 mb-10">
-            <Field>
-              <Label>Image</Label>
-              <ImageUpload
-                onChange={handleSelectImage}
-                progress={progress}
-                image={image}
-                handleDeleteImage={handleDeleteImage}
-              ></ImageUpload>
             </Field>
           </div>
           <Field>
