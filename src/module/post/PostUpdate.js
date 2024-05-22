@@ -10,7 +10,7 @@ import Toggle from "../../components/toggle/Toggle";
 import { Button } from "../../components/button";
 import { imgbbAPI, postStatus, userRole } from "../../utils/constants";
 import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageUploader from "quill-image-uploader";
