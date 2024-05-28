@@ -4,11 +4,14 @@ import styled from "styled-components";
 import { auth } from "../../firebase/firebase-config";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { useContact } from "../../components/layout/Contact-context";
 const SidebarStyles = styled.div`
   width: 300px;
   background: #ffffff;
-  box-shadow: 10px 10px 20px rgba(218, 213, 213, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
   border-radius: 12px;
+  transition: all 0.3s linear;
+  z-index: 10;
   .menu-item {
     display: flex;
     align-items: center;
@@ -24,8 +27,22 @@ const SidebarStyles = styled.div`
       color: ${(props) => props.theme.primary};
     }
   }
-  @media screen and (max-width: 1023.98px) {
-    display: none;
+  @media (min-width: 770.1px) and (max-width: 1023.98px) {
+    width: 250px;
+  }
+  @media screen and (max-width: 770px) {
+    position: absolute;
+    animation: showMenu 0.3s linear;
+    @keyframes showMenu {
+      from {
+        left: -300px;
+        opacity: 0;
+      }
+      to {
+        left: 0;
+        opacity: 1;
+      }
+    }
   }
 `;
 

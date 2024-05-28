@@ -54,7 +54,7 @@ const Footer = () => {
     <FooterStyles>
       <div className="container">
         <div className="footer">
-          <div className="footer-top grid grid-cols-4 gap-x-10">
+          <div className="footer-top layout-footer grid grid-cols-4 gap-x-10">
             <div className="footer-top-item">
               <div className="footer-top-header">
                 <img src="./monkey.png" alt="#" />

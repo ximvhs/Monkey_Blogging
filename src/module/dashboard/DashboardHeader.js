@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../../contexts/auth-context";
 import { Button } from "../../components/button";
+import { useContact } from "../../components/layout/Contact-context";
 const DashboardHeaderStyles = styled.div`
   background-color: white;
   padding: 20px;
@@ -40,16 +41,49 @@ const DashboardHeaderStyles = styled.div`
     align-items: center;
     gap: 20px;
   }
+  .icon-bar {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .icon-bar {
+      display: flex;
+      cursor: pointer;
+      padding: 10px;
+    }
+    .logo {
+      display: none;
+    }
+  }
 `;
 
 const DashboardHeader = () => {
   const { userInfo } = useAuth();
+  const { show, setShow } = useContact();
+  const handleNavBar = () => {
+    setShow(!show);
+  };
   return (
     <DashboardHeaderStyles>
       <NavLink to="/" className="logo">
         <img srcSet="/monkey.png 2x" alt="monkey-blogging" className="logo" />
         <span className="hidden lg:inline-block">XimVHS Blogging</span>
       </NavLink>
+      <button className="icon-bar" onClick={handleNavBar}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+          />
+        </svg>
+      </button>
       <div className="header-right">
         <Button to="/manage/add-post" className="header-button" height="52px">
           Write new post
@@ -57,7 +91,6 @@ const DashboardHeader = () => {
         <Link to="manage/profile" className="header-avatar">
           <img
             src={userInfo.avatar ? userInfo.avatar : "../NoAvatar.png"}
-            // src={userInfo?.avatar}
             alt="avatar"
           />
         </Link>

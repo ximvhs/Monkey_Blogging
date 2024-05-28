@@ -118,58 +118,61 @@ const UserProfile = () => {
             handleDeleteImage={handleDeleteImage}
           ></ImageUpload>
         </div>
-        <div className="form-layout">
-          <Field>
-            <Label>Fullname</Label>
-            <Input
-              control={control}
-              name="fullname"
-              placeholder="Enter your fullname"
-            ></Input>
-          </Field>
-          <Field>
-            <Label>Username</Label>
-            <Input
-              control={control}
-              name="username"
-              placeholder="Enter your username"
-            ></Input>
-          </Field>
+        <div className="form-layout-sm">
+          <div className="form-layout">
+            <Field>
+              <Label>Fullname</Label>
+              <Input
+                control={control}
+                name="fullname"
+                placeholder="Enter your fullname"
+              ></Input>
+            </Field>
+            <Field>
+              <Label>Username</Label>
+              <Input
+                control={control}
+                name="username"
+                placeholder="Enter your username"
+              ></Input>
+            </Field>
+          </div>
+          <div className="form-layout">
+            <Field>
+              <Label>Date of Birth</Label>
+              <Input
+                type="date"
+                control={control}
+                name="birthday"
+                placeholder="dd/mm/yyyy"
+              ></Input>
+            </Field>
+            <Field>
+              <Label>Mobile Number</Label>
+              <Input
+                control={control}
+                name="phone"
+                type="tel"
+                pattern="[0-0]{1}[1-9]{2}[0-9]{3}[0-9]{4}"
+                required
+                placeholder="Enter your phone number"
+              ></Input>
+            </Field>
+          </div>
+          <div className="form-layout">
+            <Field>
+              <Label>Email</Label>
+              <Input
+                control={control}
+                name="email"
+                type="email"
+                placeholder="Enter your email address"
+              ></Input>
+            </Field>
+            <Field></Field>
+          </div>
         </div>
-        <div className="form-layout">
-          <Field>
-            <Label>Date of Birth</Label>
-            <Input
-              type="date"
-              control={control}
-              name="birthday"
-              placeholder="dd/mm/yyyy"
-            ></Input>
-          </Field>
-          <Field>
-            <Label>Mobile Number</Label>
-            <Input
-              control={control}
-              name="phone"
-              type="tel"
-              pattern="[0-0]{1}[1-9]{2}[0-9]{3}[0-9]{4}"
-              required
-              placeholder="Enter your phone number"
-            ></Input>
-          </Field>
-        </div>
-        <div className="form-layout">
-          <Field>
-            <Label>Email</Label>
-            <Input
-              control={control}
-              name="email"
-              type="email"
-              placeholder="Enter your email address"
-            ></Input>
-          </Field>
-          <Field></Field>
-        </div>
+
         <Button
           kind="primary"
           className=" w-[200px] mx-auto"
