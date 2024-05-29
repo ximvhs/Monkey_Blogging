@@ -18,7 +18,7 @@ const FooterStyles = styled.div`
   }
   .footer {
     &-top {
-      border-bottom: solid 2px #c5c5c5;
+      border-bottom: solid 2px white;
       &-item {
         margin-bottom: 20px;
         & > p {

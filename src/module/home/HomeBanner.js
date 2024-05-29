@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../../components/button";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/auth-context";
 
 const HomeBannerStyles = styled.div`
   min-height: 520px;
@@ -60,6 +61,8 @@ const HomeBannerStyles = styled.div`
 `;
 
 const HomeBanner = () => {
+  const { userInfo } = useAuth();
+
   return (
     <HomeBannerStyles>
       <div className="container">
@@ -72,9 +75,15 @@ const HomeBanner = () => {
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi.
             </p>
-            <NavLink to="/manage/add-post">
-              <Button className="btn-white banner-button">Get Started</Button>
-            </NavLink>
+            {userInfo ? (
+              <NavLink to="/manage/add-post">
+                <Button className="btn-white banner-button">Get Started</Button>
+              </NavLink>
+            ) : (
+              <NavLink to="/sign-in">
+                <Button className="btn-white banner-button">Get Started</Button>
+              </NavLink>
+            )}
           </div>
           <div className="banner-image">
             <img src="/Banner.png" alt="Banner" />

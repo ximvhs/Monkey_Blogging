@@ -55,12 +55,15 @@ const PostNewestItem = ({ data }) => {
   const date = data?.createdAt?.seconds
     ? new Date(data?.createdAt?.seconds * 1000)
     : new Date();
+  const { category, user } = data;
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
   return (
     <PostNewestItemStyles>
       <PostImage url={data.image} alt="" to={data?.slug}></PostImage>
       <div className="post-content">
-        <PostCategory type="secondary">{data.category?.name}</PostCategory>
+        <PostCategory type="secondary" to={category.slug}>
+          {category.slug}
+        </PostCategory>
         <PostTitle size="normal" to={data?.slug}>
           {data.title}
         </PostTitle>

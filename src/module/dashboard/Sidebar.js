@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { auth } from "../../firebase/firebase-config";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { useContact } from "../../components/layout/Contact-context";
 const SidebarStyles = styled.div`
   width: 300px;
   background: #ffffff;

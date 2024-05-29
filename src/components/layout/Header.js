@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "../button";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/auth-context";
-import Contact from "./Contact";
 import { useContact } from "./Contact-context";
 import Menu from "../menu/Menu";
 
@@ -142,6 +141,7 @@ const HeaderStyles = styled.header`
 
 const Header = () => {
   const { userInfo } = useAuth();
+  console.log("userInfo: ", userInfo);
   const { show, setShow } = useContact();
 
   const menuLinks = [
